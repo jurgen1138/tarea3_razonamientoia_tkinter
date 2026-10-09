@@ -27,14 +27,3 @@ def buscar_usuario(correo):
             return usuario
     return None 
 
-
-
-if __name__ == "__main__":
-    print("Usuarios al inicio:", cargar_usuarios())
-    usuarios = cargar_usuarios()
-    usuarios.append({"nombre": "Prueba", "apellido": "Uno",
-                     "correo": "prueba@correo.com", "contrasena": "Hola#123"})
-    guardar_usuarios(usuarios)
-    print("Usuarios después de guardar:", cargar_usuarios())
-    print("Buscar prueba@correo.com:", buscar_usuario("prueba@correo.com"))
-    print("Buscar nadie@correo.com:", buscar_usuario("nadie@correo.com"))

@@ -101,10 +101,3 @@ def ir_a_login(ventana):
     from login import mostrar_login
     mostrar_login(ventana)
 
-# Prueba: ejecuta "py registro.py" para ver solo esta pantalla
-if __name__ == "__main__":
-    ventana = tk.Tk()
-    ventana.title("Prueba - Registro")
-    ventana.geometry("350x400")
-    mostrar_registro(ventana)
-    ventana.mainloop()
