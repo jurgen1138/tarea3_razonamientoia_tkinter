@@ -1,0 +1,11 @@
+# Archivos generados por Python
+__pycache__/
+*.pyc
+
+# Datos locales de usuarios (contienen contraseñas, cada quien tiene el suyo)
+usuarios.json
+
+# Entornos virtuales y configuración del editor
+venv/
+.venv/
+.vscode/
