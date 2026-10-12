@@ -3,6 +3,7 @@ import tkinter as tk
 from tkinter import messagebox
 
 from datos import cargar_usuarios, guardar_usuarios, buscar_usuario
+from estilos import limpiar, cabecera, campo, boton, enlace, FONDO
 
 
 def validar_contrasena(contrasena):
@@ -35,32 +36,24 @@ def validar_contrasena(contrasena):
     return errores
 
 def mostrar_registro(ventana):
-    # Limpiar la pantalla anterior
-    for widget in ventana.winfo_children():
-        widget.destroy()
+    limpiar(ventana)
+    cabecera(ventana, "Registro de Usuario", "Completa tus datos para crear la cuenta")
 
-    tk.Label(ventana, text="Registro de Usuario", font=("Arial", 14, "bold")).pack(pady=15)
+    cuerpo = tk.Frame(ventana, bg=FONDO)
+    cuerpo.pack(fill="both", expand=True, padx=25, pady=15)
 
-    #Nombre
-    tk.Label(ventana, text="Nombre:").pack()
-    entrada_nombre = tk.Entry(ventana, width=30)
-    entrada_nombre.pack(pady=3)
+    # Nombre y apellido van lado a lado
+    fila = tk.Frame(cuerpo, bg=FONDO)
+    fila.pack(fill="x", pady=(0, 8))
+    entrada_nombre = campo(fila, "Nombre:")
+    entrada_nombre.contenedor.pack(side="left", fill="x", expand=True, padx=(0, 5))
+    entrada_apellido = campo(fila, "Apellido:")
+    entrada_apellido.contenedor.pack(side="left", fill="x", expand=True, padx=(5, 0))
 
-    #Apellido
-    tk.Label(ventana, text="Apellido:").pack()
-    entrada_apellido = tk.Entry(ventana, width=30)
-    entrada_apellido.pack(pady=3)
-
-    # Correo
-    tk.Label(ventana, text="Correo:").pack()
-    entrada_correo = tk.Entry(ventana, width=30)
-    entrada_correo.pack(pady=3)
-
-    # Contraseña
-    tk.Label(ventana, text="Contraseña:").pack()
-    entrada_contrasena = tk.Entry(ventana, width=30, show="*")
-    entrada_contrasena.pack(pady=3)
-
+    entrada_correo = campo(cuerpo, "Correo:")
+    entrada_correo.contenedor.pack(fill="x", pady=(0, 8))
+    entrada_contrasena = campo(cuerpo, "Contraseña:", oculto=True)
+    entrada_contrasena.contenedor.pack(fill="x", pady=(0, 12))
 
     def registrar():
         #Leer los datos ingresados
@@ -91,13 +84,15 @@ def mostrar_registro(ventana):
         from login import mostrar_login
         mostrar_login(ventana)
 
-    tk.Button(ventana, text="Registrarse", command=registrar).pack(pady=10)
+    boton(cuerpo, "Registrarse", registrar).pack(fill="x", ipady=6)
+    ventana.bind("<Return>", lambda evento: registrar())
 
-    enlace = tk.Label(ventana, text="¿Ya tienes cuenta? Inicia sesión", fg="blue", cursor="hand2")
-    enlace.pack(pady=5)
-    enlace.bind("<Button-1>", lambda evento: ir_a_login(ventana))
+    enlace(cuerpo, "¿Ya tienes cuenta?", "Inicia sesión",
+           lambda: ir_a_login(ventana)).pack(pady=10)
+
+    entrada_nombre.focus()
+
 
 def ir_a_login(ventana):
     from login import mostrar_login
     mostrar_login(ventana)
-
